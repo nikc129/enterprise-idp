@@ -1,0 +1,102 @@
+# ==========================================================
+# Terraform
+# ==========================================================
+
+# Local Terraform directories
+**/.terraform/*
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI configuration
+.terraformrc
+terraform.rc
+
+# ==========================================================
+# Terraform Variables (Sensitive)
+# ==========================================================
+
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Ignore local secrets
+terraform.tfvars.local
+
+# ==========================================================
+# Sensitive Files
+# ==========================================================
+
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# AWS Credentials
+.aws/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# ==========================================================
+# IDE
+# ==========================================================
+
+.vscode/
+.idea/
+
+*.iml
+
+# ==========================================================
+# OS Files
+# ==========================================================
+
+.DS_Store
+Thumbs.db
+
+# ==========================================================
+# Logs
+# ==========================================================
+
+*.log
+
+# ==========================================================
+# Python (for helper scripts)
+# ==========================================================
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# ==========================================================
+# Node (for Backstage later)
+# ==========================================================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================================
+# Misc
+# ==========================================================
+
+coverage/
+dist/
+build/
