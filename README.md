@@ -1,110 +1,79 @@
 # Enterprise Internal Developer Platform (IDP)
 
-> **A self-service Internal Developer Platform that enables developers to provision cloud infrastructure and deploy applications with a single click using AWS, Terraform, Kubernetes, and GitOps.**
+A production-inspired **Internal Developer Platform (IDP)** built on AWS using **Terraform**, **Docker**, and modern DevOps practices.
+
+This project demonstrates how Platform Engineering teams automate infrastructure provisioning, application deployment, monitoring, and developer self-service while remaining AWS Free Tier friendly.
 
 ---
 
-# Overview
+## Project Goals
 
-Modern development teams spend significant time manually creating infrastructure, configuring cloud resources, setting up Kubernetes clusters, managing CI/CD pipelines, and configuring monitoring before they can deploy an application.
-
-The **Enterprise Internal Developer Platform (IDP)** aims to eliminate these repetitive tasks by providing a centralized self-service platform where developers can request infrastructure and deploy applications automatically.
-
-Instead of manually configuring AWS resources, developers simply fill out a deployment form in the portal. The platform provisions infrastructure, deploys applications, configures monitoring, and manages the deployment lifecycle automatically.
-
----
-
-# Problem Statement
-
-Provisioning production-ready infrastructure requires multiple manual steps:
-
-* Creating VPCs and networking
-* Configuring IAM permissions
-* Setting up Kubernetes clusters
-* Creating container registries
-* Building CI/CD pipelines
-* Configuring monitoring and logging
-* Managing DNS and SSL certificates
-
-These repetitive tasks consume engineering time, introduce inconsistencies, and increase operational risk.
+- Infrastructure as Code using Terraform
+- Modular AWS architecture
+- Production-style networking
+- Docker-based application platform
+- CI/CD automation
+- Monitoring & Logging
+- Developer self-service platform
+- AI-assisted Platform Engineering
 
 ---
 
-# Solution
+# Architecture
 
-This project provides a self-service Internal Developer Platform where developers can:
-
-* Request infrastructure
-* Deploy applications
-* Manage environments
-* Monitor deployments
-* View logs
-* Roll back releases
-
-All infrastructure is provisioned using Infrastructure as Code (Terraform), while application deployment follows GitOps principles using Kubernetes and ArgoCD.
-
----
-
-# Project Goals
-
-* Build a production-inspired Internal Developer Platform.
-* Automate AWS infrastructure provisioning.
-* Implement reusable Terraform modules.
-* Deploy applications to Amazon EKS.
-* Automate CI/CD using GitHub Actions.
-* Implement GitOps using ArgoCD.
-* Integrate monitoring and centralized logging.
-* Follow security best practices with IAM and Secrets Manager.
-* Demonstrate Platform Engineering concepts used by modern engineering organizations.
+```
+                 Internet
+                     │
+                     ▼
+               EC2 Instance
+                     │
+              Docker Engine
+                     │
+              Docker Compose
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+      Nginx Reverse Proxy   Docker Network
+          │                     │
+     ┌────┴─────┐          ┌────┴─────┐
+     ▼          ▼          ▼          ▼
+ Frontend   Backend    Future DB   Monitoring
+```
 
 ---
 
-# High-Level Architecture
+# Repository Structure
 
-```text
-                     Developer
+```
+enterprise-idp/
 
-                         │
-
-              Internal Developer Portal
-
-                         │
-
-                    Backend API
-
-                         │
-
-                  Terraform Engine
-
-                         │
-
-                AWS Infrastructure
-
-        VPC • IAM • EKS • ECR • RDS
-
-                         │
-
-                 GitHub Actions
-
-                         │
-
-                   Docker Build
-
-                         │
-
-                    Amazon ECR
-
-                         │
-
-                      ArgoCD
-
-                         │
-
-                Kubernetes (EKS)
-
-                         │
-
-       Prometheus • Grafana • Loki
+├── docs/
+│
+├── scripts/
+│   └── user-data.sh
+│
+├── docker/
+│   ├── docker-compose.yml
+│   ├── nginx/
+│   ├── frontend/
+│   └── backend/
+│
+├── terraform/
+│   ├── bootstrap/
+│   ├── environments/
+│   │   ├── dev/
+│   │   ├── stage/
+│   │   └── prod/
+│   │
+│   └── modules/
+│       ├── ec2/
+│       ├── iam/
+│       ├── networking/
+│       ├── security-group/
+│       └── vpc/
+│
+├── .gitignore
+└── README.md
 ```
 
 ---
@@ -113,231 +82,166 @@ All infrastructure is provisioned using Infrastructure as Code (Terraform), whil
 
 ## Cloud
 
-* Amazon Web Services (AWS)
-* Amazon VPC
-* Amazon EKS
-* Amazon ECR
-* Amazon Route53
-* AWS IAM
-* AWS Secrets Manager
-* Amazon RDS
+- AWS EC2
+- Amazon VPC
+- IAM
+- Security Groups
+- Route Tables
+- Internet Gateway
+- NAT Gateway
 
-## Infrastructure as Code
+## Infrastructure
 
-* Terraform
-* Terraform Modules
-* Remote State
-* S3 Backend
-* DynamoDB State Locking
+- Terraform
 
 ## Containers
 
-* Docker
-* Kubernetes
-* Helm
+- Docker
+- Docker Compose
+- Nginx
 
-## GitOps & CI/CD
+## Version Control
 
-* GitHub Actions
-* ArgoCD
-
-## Monitoring
-
-* Prometheus
-* Grafana
-* Loki
-* Alertmanager
-
-## Backend
-
-* FastAPI (planned)
-
-## Frontend
-
-* React (planned)
+- Git
+- GitHub
 
 ---
 
-# Repository Structure
+# Completed Modules
 
-```text
-enterprise-idp/
+## Module 1 — Infrastructure Foundation
 
-├── terraform/
-│   ├── bootstrap/
-│   ├── modules/
-│   ├── environments/
-│   └── root/
-│
-├── backend/
-│
-├── portal/
-│
-├── kubernetes/
-│
-├── monitoring/
-│
-├── argocd/
-│
-├── github/
-│
-├── docs/
-│
-└── README.md
-```
+- Remote Terraform State (S3)
+- State Locking (DynamoDB)
+- Custom VPC
+- Public & Private Subnets
+- Internet Gateway
+- NAT Gateway
+- Route Tables
+- Security Groups
+- IAM Roles
+- Modular Terraform Structure
+
+**Status:** ✅ Completed
 
 ---
 
-# Development Roadmap
+## Module 2 — Compute Platform
 
-| Module                                 | Status         |
-| -------------------------------------- | -------------- |
-| Module 1 – Infrastructure Provisioning | 🚧 In Progress |
-| Module 2 – Amazon EKS                  | ⏳ Planned      |
-| Module 3 – Amazon ECR                  | ⏳ Planned      |
-| Module 4 – CI/CD Pipeline              | ⏳ Planned      |
-| Module 5 – GitOps with ArgoCD          | ⏳ Planned      |
-| Module 6 – Monitoring                  | ⏳ Planned      |
-| Module 7 – Logging                     | ⏳ Planned      |
-| Module 8 – Developer Portal            | ⏳ Planned      |
-| Module 9 – Backend API                 | ⏳ Planned      |
-| Module 10 – Security & Policy          | ⏳ Planned      |
+- Ubuntu EC2 Instance
+- IAM Instance Profile
+- User Data Bootstrap
+- Docker Installation
+- Docker Compose Installation
+- Git Installation
+- AWS CLI Installation
+- Docker Platform
+- Reverse Proxy using Nginx
+- Multi-container Architecture
 
----
-
-# Module 1 – Infrastructure Provisioning
-
-## Objective
-
-Build a reusable, modular, and production-ready AWS networking foundation using Terraform.
-
-This module establishes the core infrastructure that all remaining modules will build upon.
+**Status:** ✅ Completed
 
 ---
 
-## Module Scope
+# Upcoming Modules
 
-The following AWS resources will be provisioned:
+## Module 3 — CI/CD
 
-* VPC
-* Public Subnets
-* Private Subnets
-* Internet Gateway
-* NAT Gateway
-* Elastic IP
-* Route Tables
-* Route Table Associations
-* Security Groups
-* IAM Roles
-* Remote Terraform Backend
-* S3 State Bucket
-* DynamoDB State Lock Table
+- GitHub Actions
+- Docker Image Build
+- Automatic Deployment
+- Zero-downtime Deployment
 
 ---
 
-## Module 1 Architecture
+## Module 4 — Monitoring
 
-```text
-                 AWS Account
-
-                      │
-
-            Terraform Backend
-
-          S3 + DynamoDB Lock
-
-                      │
-
-                  VPC Module
-
-                      │
-
-      ┌───────────────┴───────────────┐
-
- Public Subnets                 Private Subnets
-
-      │                                 │
-
-Internet Gateway                  NAT Gateway
-
-      │                                 │
-
-  Public Routing                 Private Routing
-```
+- Prometheus
+- Grafana
+- Node Exporter
+- cAdvisor
+- Alertmanager
 
 ---
 
-## Learning Objectives
+## Module 5 — Developer Portal
 
-By completing Module 1, the project will demonstrate:
+- Internal Developer Portal
+- Service Catalog
+- Self-service Templates
 
-* Infrastructure as Code (IaC)
-* Terraform Modules
-* Terraform State Management
-* Remote Backends
-* AWS Networking Fundamentals
-* IAM Best Practices
-* Modular Infrastructure Design
-* Environment Separation
-* Production-ready Repository Structure
+---
+
+## Module 6 — AI Platform Assistant
+
+- AI-powered troubleshooting
+- Infrastructure recommendations
+- Automated documentation
+- Developer assistance
 
 ---
 
 # Current Progress
 
-### Completed
-
-* Project planning
-* Architecture design
-* Technology selection
-* Repository structure
-
-### In Progress
-
-* Module 1
-
-  * Terraform project initialization
-  * Backend bootstrap
-  * VPC module
-  * Networking module
-  * IAM module
-  * Security group module
-
-### Upcoming
-
-* Amazon EKS
-* GitHub Actions
-* ArgoCD
-* Monitoring Stack
-* Developer Portal
+| Module | Status |
+|----------|--------|
+| Infrastructure | ✅ |
+| Compute Platform | ✅ |
+| CI/CD | ⬜ |
+| Monitoring | ⬜ |
+| Developer Portal | ⬜ |
+| AI Assistant | ⬜ |
 
 ---
 
-# Future Features
+# Current Features
 
-* One-click application deployment
-* Multi-environment support (Development, Staging, Production)
-* Self-service infrastructure provisioning
-* GitOps-based deployments
-* Centralized monitoring and logging
-* Slack deployment notifications
-* Cost dashboard
-* Policy as Code (OPA)
-* Role-Based Access Control (RBAC)
-* AI Infrastructure Assistant
-* Automatic rollback
-* Self-healing deployments
+- Infrastructure as Code
+- Modular Terraform
+- Secure AWS Networking
+- EC2 Compute Platform
+- Docker Engine
+- Docker Compose
+- Reverse Proxy
+- Enterprise Folder Structure
+- Production-ready Project Organization
 
 ---
 
-# Project Status
+# Future Improvements
 
-**Current Phase:** Module 1 – Infrastructure Provisioning
-
-This repository is actively being developed as a production-style Platform Engineering project to demonstrate modern DevOps, Cloud Engineering, and Infrastructure Automation practices.
+- SSL using Let's Encrypt
+- Auto Scaling
+- Load Balancer
+- Private Container Registry (ECR)
+- Kubernetes (EKS Version)
+- Observability Stack
+- Cost Monitoring
+- Policy as Code
+- GitOps
 
 ---
 
-# License
+# Learning Outcomes
 
-This project is intended for educational and portfolio purposes.
+This project demonstrates practical experience with:
+
+- AWS Infrastructure
+- Platform Engineering
+- DevOps
+- Docker
+- Infrastructure as Code
+- Cloud Security
+- Networking
+- CI/CD
+- Monitoring
+- Enterprise Project Architecture
+
+---
+
+## Author
+
+**Nikhil Chary**
+
+Enterprise Internal Developer Platform (IDP)
+Built for learning Platform Engineering, Cloud Infrastructure, and DevOps using AWS Free Tier.

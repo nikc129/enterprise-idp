@@ -1,11 +1,10 @@
 /*
-===========================================
-IAM Variables
-===========================================
+=========================================
+IAM Module Variables
+=========================================
 */
 
 variable "project_name" {
-
-  type = string
-
+  description = "Project name prefix"
+  type        = string
 }

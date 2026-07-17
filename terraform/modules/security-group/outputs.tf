@@ -1,11 +1,21 @@
-output "alb_security_group_id" {
-  value = aws_security_group.alb.id
-}
+/*
+=========================================
+Security Group Outputs
+=========================================
+*/
 
-output "eks_node_security_group_id" {
-  value = aws_security_group.eks_nodes.id
+output "ec2_security_group_id" {
+
+  description = "EC2 Security Group ID"
+
+  value = aws_security_group.ec2.id
+
 }
 
 output "database_security_group_id" {
+
+  description = "Database Security Group ID"
+
   value = aws_security_group.database.id
+
 }
