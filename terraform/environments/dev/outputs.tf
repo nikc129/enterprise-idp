@@ -28,11 +28,11 @@ output "private_subnet_2" {
 
 }
 
-output "eks_cluster_role" {
+# output "eks_cluster_role" {
 
-  value = module.iam.eks_cluster_role_arn
+#   value = module.iam.eks_cluster_role_arn
 
-}
+# }
 
 # output "ecr_repository_url" {
 #   value = module.ecr.repository_url

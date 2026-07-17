@@ -67,3 +67,18 @@ Amazon ECR
 #   repository_name = "${var.project_name}-repository"
 
 # }
+
+module "ec2" {
+  source = "../../modules/ec2"
+
+  instance_name        = var.instance_name
+  instance_type        = var.instance_type
+  ami_id               = var.ami_id
+  subnet_id            = module.networking.public_subnet_1_id
+  security_group_ids = [
+    module.security_groups.ec2_security_group_id
+  ]
+  iam_instance_profile = module.iam.instance_profile_name
+  key_name             = var.key_name
+  user_data_file       = var.user_data_file
+}
