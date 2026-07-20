@@ -1,0 +1,59 @@
+name: Deploy to EC2
+
+on:
+  workflow_dispatch:
+    inputs:
+      instance_ip:
+        description: "EC2 public IP address"
+        required: true
+        type: string
+      image_name:
+        description: "Full Docker image path (e.g., ghcr.io/org/app)"
+        required: true
+        type: string
+      tag:
+        description: "Image tag to deploy"
+        required: true
+        default: "latest"
+        type: string
+      container_name:
+        description: "Container name on the EC2 instance"
+        required: true
+        default: "app"
+        type: string
+      port:
+        description: "Host port to expose"
+        required: true
+        default: "80"
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ inputs.instance_ip }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+
+            echo "--- Pulling image ---"
+            docker pull ${{ inputs.image_name }}:${{ inputs.tag }}
+
+            echo "--- Stopping old container ---"
+            docker stop ${{ inputs.container_name }} 2>/dev/null || true
+            docker rm ${{ inputs.container_name }} 2>/dev/null || true
+
+            echo "--- Starting new container ---"
+            docker run -d \
+              --name ${{ inputs.container_name }} \
+              --restart unless-stopped \
+              -p ${{ inputs.port }}:8000 \
+              ${{ inputs.image_name }}:${{ inputs.tag }}
+
+            echo "--- Deployment complete ---"
+            docker ps | grep ${{ inputs.container_name }}

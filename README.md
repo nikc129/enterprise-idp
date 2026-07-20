@@ -52,26 +52,32 @@ enterprise-idp/
 ├── scripts/
 │   └── user-data.sh
 │
-├── docker/
-│   ├── docker-compose.yml
-│   ├── nginx/
-│   ├── frontend/
-│   └── backend/
+├── backend/                  # FastAPI Application Module
+│   ├── app/                  # Application layers (Clean Architecture)
+│   │   ├── api/              # API startup, dependencies injection
+│   │   ├── core/             # Configuration, logging, exception definitions
+│   │   ├── models/           # Declarative database models
+│   │   ├── schemas/          # Data validation schemas (Pydantic)
+│   │   ├── repositories/     # Data access abstraction
+│   │   ├── services/         # Domain business workflow services
+│   │   ├── routers/          # Endpoint controllers (authentication, health)
+│   │   ├── middleware/       # Exception handler & logging middlewares
+│   │   └── integrations/     # External provider API wrappers
+│   ├── alembic/              # Database schema migrations
+│   ├── Dockerfile            # Multi-stage production container image
+│   ├── requirements.txt      # Python dependencies
+│   ├── .env.example          # Environment variables template
+│   └── README.md             # Backend development guide
 │
-├── terraform/
+├── terraform/                # Infrastructure as Code modules
 │   ├── bootstrap/
 │   ├── environments/
 │   │   ├── dev/
 │   │   ├── stage/
 │   │   └── prod/
-│   │
 │   └── modules/
-│       ├── ec2/
-│       ├── iam/
-│       ├── networking/
-│       ├── security-group/
-│       └── vpc/
 │
+├── docker-compose.yml        # Local services orchestrator (Backend & Postgres)
 ├── .gitignore
 └── README.md
 ```
@@ -189,7 +195,7 @@ enterprise-idp/
 | Compute Platform | ✅ |
 | CI/CD | ⬜ |
 | Monitoring | ⬜ |
-| Developer Portal | ⬜ |
+| Developer Portal (Backend) | ✅ |
 | AI Assistant | ⬜ |
 
 ---

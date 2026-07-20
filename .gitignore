@@ -83,15 +83,19 @@ __pycache__/
 *.pyd
 .venv/
 venv/
+*.egg-info/
+idp.db
 
 # ==========================================================
-# Node (for Backstage later)
+# Node (Frontend)
 # ==========================================================
 
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.next/
+out/
 
 # ==========================================================
 # Misc
